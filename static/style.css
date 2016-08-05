@@ -3,7 +3,7 @@
     color: #ec971f;
 }
 
-#girl{
+#girl {
     margin: 64px;
     color: #dca7a7;
 }
@@ -11,6 +11,12 @@
 #articulo-contenido {
     margin: 0 auto;
     color: #2b542c;
+}
+
+#todo {
+
+    color: #485F6E;
+
 }
 
 

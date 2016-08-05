@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container">
-        <div class="page-header">
-            <h1>开发完成的小玩具</h1>
+        <div>
+            <div class="page-header">
+                <h1>可以调戏</h1>
+            </div>
+            <ul>
+                <li><a href="/android">干货的 Android</a></li>
+                <li><a href="/one">看下今天 one 文章</a></li>
+                <li><a href="/girls">看妹子呢</a></li>
+            </ul>
         </div>
-        <p><a href="/android">干货的 Android </a></p>
-        <p><a href="/girls">看妹子呢</a></p>
-        <p><a href="/one">看下今天 one 文章</a></p>
+        <div>
+            <div class="page-header">
+                <h1>待调戏</h1>
+            </div>
+            <ul>
+                <div class="todo">
+                    <li><a href="/gif">娱乐 GIF</a></li>
+                </div>
+            </ul>
+        </div>
     </div>
 {% endblock %}
