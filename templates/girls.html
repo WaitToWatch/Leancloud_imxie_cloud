@@ -3,10 +3,9 @@
 {% block content %}
     <div id="girl">
         <h1>妹子们 :)</h1>
-        <p><a href="/girls">点我换内容哟 ～</a></p>
-
+        <h2><p><a href="/girls">点我换内容哟 ～</a></p></h2>
         {% for data in datas %}
-            <p><img src="{{ data.url }} "></p>
+            <p><img class="img-responsive" alt="140x140" src="{{ data.url }} "></p>
         {% endfor %}
     </div>
 {% endblock %}

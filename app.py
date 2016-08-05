@@ -62,3 +62,8 @@ def get_girls():
 @app.route('/one')
 def get_one():
     return render_template('one.html', data=one_email.get_one_page())
+
+
+@app.route('/save_email')
+def save_email():
+    return render_template('save_email.html')

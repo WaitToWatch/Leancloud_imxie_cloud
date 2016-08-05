@@ -137,7 +137,7 @@ def get_one_page():
 
     stroy = stroy_title + stroy_content
 
-    stroy = Markup('<img src="' + imgUrl + '"></p></div>' +
+    stroy = Markup('<img class="img-responsive" alt="140x140" src="' + imgUrl + '"></p></div>' +
                    '<p style="text-align:center;\"> <br /><br />'
                    '<strong><span style="font-size:14px; text-align: center;\">' + text + '</span></strong></p><br /><br /><br /><br /><br />'
                    + stroy)
@@ -147,7 +147,7 @@ def get_one_page():
 
 def to_MIMEText(text, img, story):
     return MIMEText('<html><body><div style="text-align: center;">'
-                    '<p><img src="' + img + '"></p></div>' +
+                    '<p><img  src="' + img + '"></p></div>' +
                     '<p style="text-align:center;\"> <br /><br />'
                     '<strong><span style="font-size:14px; text-align: center;\">' + text + '</span></p><br /><br /><br /><br /><br />'
                     + story + '</body></html>',
