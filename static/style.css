@@ -1,6 +1,11 @@
-#container {
-    margin: 0 auto;
-    width: 960px;
+#android {
+    margin: 64px;
+    color: #ec971f;
+}
+
+#girl{
+    margin: 64px;
+    color: #dca7a7;
 }
 
 #articulo-contenido {
