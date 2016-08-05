@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>看妹子！</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+</head>
+<body>
+<div id="container">
+    <h1>妹子们 :)</h1>
+    <p><a href="/girls">点我换内容哟 ～</a></p>
+    {% for data in datas %}
+        <p>
+            <img src="{{ data.url }} ">
+        </p>
+    {% endfor %}
+</div>
+</body>
+</html>

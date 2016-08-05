@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Android 推荐！</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+</head>
+<body>
+<div id="container">
+    <h1>Android :)</h1>
+    <p><a href="/android">点我换内容哟 ～</a></p>
+    {% for data in datas %}
+        <ul>
+            <li><a href="{{ data.url }} ">{{ data.desc }}</a></li>
+        </ul>
+    {% endfor %}
+</div>
+</body>
+</html>
