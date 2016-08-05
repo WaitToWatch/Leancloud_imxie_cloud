@@ -141,6 +141,7 @@ def get_one_page():
                    '<p style="text-align:center;\"> <br /><br />'
                    '<strong><span style="font-size:14px; text-align: center;\">' + text + '</span></strong></p><br /><br /><br /><br /><br />'
                    + stroy)
+    # print(stroy)
     return stroy
 
 

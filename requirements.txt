@@ -6,3 +6,4 @@ Flask-Sockets>=0.1
 beautifulsoup4
 lxml
 requests
+flask-bootstrap

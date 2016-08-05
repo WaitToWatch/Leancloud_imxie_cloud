@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
+
 from gevent import monkey
-
-monkey.patch_all()
-
 import os
 
 import leancloud
@@ -12,6 +10,8 @@ from geventwebsocket.handler import WebSocketHandler
 
 from app import app
 from cloud import engine
+
+monkey.patch_all()
 
 APP_ID = os.environ['LC_APP_ID']
 MASTER_KEY = os.environ['LC_APP_MASTER_KEY']

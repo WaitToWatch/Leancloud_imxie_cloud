@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>One 测试</title>
-    <link rel="stylesheet" href="/static/style.css" type="text/css">
-</head>
-<body>
-{{ data }}
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div style="text-align: center">
+            {{ data }}
+        </div>
+    </div>
+{% endblock %}
