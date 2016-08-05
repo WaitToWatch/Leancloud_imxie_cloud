@@ -15,9 +15,11 @@ app = Flask(__name__)
 sockets = Sockets(app)
 bootstrap = Bootstrap(app)
 
-
 # 动态路由
 app.register_blueprint(todos_view, url_prefix='/todos')
+
+# 变量
+page = 1
 
 
 @app.route('/')
@@ -49,9 +51,11 @@ def get_android():
 
 @app.route('/girls')
 def get_girls():
-    # 随机获得 X 妹子图片
-    results = requests.get('http://gank.io/api/random/data/福利/20').json().get('results')
+    # gank.io 妹子
+    global page
+    results = requests.get('http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/' + str(page)).json().get('results')
     data = [{'url': result.get('url')} for result in results]
+    page += 1
     return render_template('girls.html', datas=data)
 
 
