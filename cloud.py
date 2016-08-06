@@ -4,8 +4,7 @@ from leancloud import Engine
 
 from app import app
 
-import one_email;
-
+import one_email
 
 engine = Engine(app)
 
@@ -22,6 +21,3 @@ def hello(**params):
 def log_timer():
     one_email.http('http://wufazhuce.com/')
     print 'Log in timer.'
-
-
-

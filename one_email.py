@@ -38,12 +38,12 @@ def _format_addr(s):
 
 # 邮件方法
 def sendEmail(text, img, title, story, to_addr):
-    msg = MIMEMultipart(to_MIMEText(text=text, img=img, story=story))
+    msg = MIMEMultipart()
     msg['From'] = _format_addr(u'IMXIE <%s>' % from_addr)
     msg['To'] = _format_addr(u'IMXIE <%s>' % to_addr)
     msg['Subject'] = Header(u'The One    ' + title, 'utf-8').encode()
 
-    msg.attach()
+    msg.attach(to_MIMEText(text=text, img=img, story=story))
 
     server = smtplib.SMTP(smtp_server, 25)
     server.set_debuglevel(1)
@@ -149,6 +149,6 @@ def to_MIMEText(text, img, story):
     return MIMEText('<html><body><div style="text-align: center;">'
                     '<p><img  src="' + img + '"></p></div>' +
                     '<p style="text-align:center;\"> <br /><br />'
-                    '<strong><span style="font-size:14px; text-align: center;\">' + text + '</span></p><br /><br /><br /><br /><br />'
+                    '<strong><span style="font-size:14px; text-align: center;\">' + text + '</span></strong></p><br /><br /><br /><br /><br />'
                     + story + '</body></html>',
                     'html', 'utf-8')
