@@ -19,7 +19,8 @@ bootstrap = Bootstrap(app)
 app.register_blueprint(todos_view, url_prefix='/todos')
 
 # 变量
-page = 1
+android_page = 1
+girl_page = 1
 
 
 @app.route('/')
@@ -41,10 +42,13 @@ def echo_socket(ws):
 
 @app.route('/android')
 def get_android():
+    global android_page
     # 随机获取10条 Android 的推荐
-    results = requests.get('http://gank.io/api/random/data/Android/10').json().get('results')
+    results = requests.get('http://gank.io/api/data/Android/10/' + str(android_page)).json().get('results')
     # 仅需要标题和 url
     data = [{'desc': result.get('desc'), 'url': result.get('url')} for result in results]
+    android_page += 1
+
     # 渲染 HTML 模板
     return render_template('android.html', datas=data)
 
@@ -52,10 +56,10 @@ def get_android():
 @app.route('/girls')
 def get_girls():
     # gank.io 妹子
-    global page
-    results = requests.get('http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/' + str(page)).json().get('results')
+    global girl_page
+    results = requests.get('http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/' + str(girl_page)).json().get('results')
     data = [{'url': result.get('url')} for result in results]
-    page += 1
+    girl_page += 1
     return render_template('girls.html', datas=data)
 
 
