@@ -7,12 +7,16 @@ from email.utils import parseaddr, formataddr
 
 import smtplib
 import requests
+
 from bs4 import BeautifulSoup
 import time
 import sys
+import os
 from lxml import etree
 
 from flask import Markup
+
+import one_save_email
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -20,45 +24,62 @@ sys.setdefaultencoding("utf-8")
 # 常量
 from_addr = 'xcc3641@163.com'
 password = '66640013'
-to_addr = ['xcc3641@163.com']
+# to_addr = ['hugo3641@gmail.com']
 smtp_server = 'smtp.163.com'
 url = 'http://wufazhuce.com/'
-
-# 标记
-isSent = False;
 
 
 # 编码转换方法
 def _format_addr(s):
     name, addr = parseaddr(s)
-    return formataddr(( \
-        Header(name, 'utf-8').encode(), \
-        addr.encode('utf-8') if isinstance(addr, unicode) else addr))
+    return formataddr((Header(name, 'utf-8').encode(), addr.encode('utf-8') if isinstance(addr, unicode) else addr))
 
 
 # 邮件方法
-def sendEmail(text, img, title, story, to_addr):
+def sendEmail(text, img, title, story):
+    mailto = one_save_email.query_email()
+    print mailto
+
     msg = MIMEMultipart()
     msg['From'] = _format_addr(u'IMXIE <%s>' % from_addr)
-    msg['To'] = _format_addr(u'IMXIE <%s>' % to_addr)
+    msg['To'] = _format_addr(','.join(mailto))
     msg['Subject'] = Header(u'The One    ' + title, 'utf-8').encode()
+    try:
+        msg.attach(to_MIMEText(text=text, img=img, story=story))
 
-    msg.attach(to_MIMEText(text=text, img=img, story=story))
+        server = smtplib.SMTP(smtp_server, 25)
+        server.set_debuglevel(1)
 
-    server = smtplib.SMTP(smtp_server, 25)
-    server.set_debuglevel(1)
+        server.login(from_addr, password)
+        server.sendmail(from_addr, mailto, msg.as_string())
+        print mailto.count()
+        server.close()
+    except Exception as e:
+        print 'Exception:', e
 
-    server.login(from_addr, password)
-    server.sendmail(from_addr, [to_addr], msg.as_string())
-    server.quit()
+
+def test_email(receivers):
+    message = MIMEText('遇见你很高兴 (๑′ᴗ‵๑)', 'plain', 'utf-8')
+    message['From'] = Header("IMXIE", 'utf-8')
+    message['To'] = Header("IMXIE", 'utf-8')
+
+    subject = 'Python SMTP 邮件测试'
+    message['Subject'] = Header(subject, 'utf-8')
+
+    try:
+        smtpObj = smtplib.SMTP()
+        smtpObj.connect(smtp_server, 25)  # 25 为 SMTP 端口号
+        smtpObj.login(from_addr, password)
+        smtpObj.sendmail(from_addr, receivers, message.as_string())
+        print "测试邮件发送成功"
+    except smtplib.SMTPException:
+        print "测试邮件 Error: 无法发送邮件"
 
 
 def http(url):
     html = requests.get(url).text
 
     page = etree.HTML(html.lower().decode("utf-8"))
-    # print(page)
-
 
     soup_main = BeautifulSoup(html, "lxml")
 
@@ -77,11 +98,6 @@ def http(url):
     title = str(title_list[0].text)
     print(title)
 
-    # title = title.replace("VOL.","")
-    # # “一个”的文章vol.1132#articulo'
-    # url_stroy = 'http://wufazhuce.com/ariticle/' + title
-    # # http://wufazhuce.com/article/1326
-
     # 得到文章的地址 用Xpath方法
     url_story = page.xpath("//*[@id=\"main-container\"]/div[1]/div[2]/div/div/div[1]/div/p[2]/a/@href")
     print(url_story[0])
@@ -93,8 +109,7 @@ def http(url):
 
     stroy = stroy_title + stroy_content
 
-    for addr in to_addr:
-        sendEmail(text, imgUrl, title, stroy, addr)
+    sendEmail(text, imgUrl, title, stroy)
 
 
 def get_one_page():

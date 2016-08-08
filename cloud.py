@@ -5,6 +5,7 @@ from leancloud import Engine
 from app import app
 
 import one_email
+import time
 
 engine = Engine(app)
 
@@ -18,6 +19,8 @@ def hello(**params):
 
 
 @engine.define
-def log_timer():
+def send_one_email():
     one_email.http('http://wufazhuce.com/')
-    print 'Log in timer.'
+    print '========================================'
+    print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    print '完成邮件发送'

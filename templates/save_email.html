@@ -1,21 +1,15 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %} ONE 邮件系统{% endblock %}
 {% block content %}
 
     <div style="margin: 120px">
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="请输入您的邮箱地址">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">提交邮箱</button>
-                    <button type="submit" class="btn btn-default">测试邮件</button>
-                </div>
-            </div>
-        </form>
+        <h1 style="margin-bottom: 32px">ONE 邮件系统</h1>
+        <p>提交您的邮件,每日早上 9 点,会自动将当日的"一个"——文章+图片+短句,发送至您的邮箱.</p>
+        <p style="margin-bottom: 24px">可能会被误认为垃圾邮件,最好的方式是信任并且添加 xcc3641@163.com 为联系人.</p>
+        {{ wtf.quick_form(form) }}
+        <strong><p style="margin-top: 24px;color: #c9302c;">{{ feedback }}</p></strong>
+        <p style="margin-top: 48px">该项目主要用于学习和实践,并且方便自我使用.如有侵犯,即刻下架</p>
     </div>
+
 {% endblock %}
