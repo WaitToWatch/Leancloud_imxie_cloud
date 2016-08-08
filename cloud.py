@@ -24,3 +24,8 @@ def send_one_email():
     print '========================================'
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print '完成邮件发送'
+
+
+@engine.define
+def send_test_email(email):
+    one_email.test_email(email)

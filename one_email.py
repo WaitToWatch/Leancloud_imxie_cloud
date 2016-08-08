@@ -61,7 +61,7 @@ def sendEmail(text, img, title, story):
 def test_email(receivers):
     message = MIMEText('遇见你很高兴 (๑′ᴗ‵๑)', 'plain', 'utf-8')
     message['From'] = Header("IMXIE", 'utf-8')
-    message['To'] = Header("IMXIE", 'utf-8')
+    message['To'] = Header(receivers, 'utf-8')
 
     subject = 'ONE 邮件系统测试'
     message['Subject'] = Header(subject, 'utf-8')
@@ -72,7 +72,8 @@ def test_email(receivers):
         smtpObj.login(from_addr, password)
         smtpObj.sendmail(from_addr, receivers, message.as_string())
         print "测试邮件发送成功"
-    except smtplib.SMTPException:
+    except Exception as e:
+        print e
         print "测试邮件 Error: 无法发送邮件"
 
 

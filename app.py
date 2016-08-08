@@ -87,7 +87,7 @@ def save_email():
         address = form.address.data
         form.address.data = ''
         if one_save_email.save(address) is True:
-            feed_back = '存入完毕,并且已经发送一个测试邮件,请查收'
+            feed_back = '存入完毕,并且已经发送一个测试邮件,请查收 \n 可能会被误认为垃圾邮件'
             one_email.test_email(address)
         else:
             feed_back = '当前 %s 已存在数据库' % address
