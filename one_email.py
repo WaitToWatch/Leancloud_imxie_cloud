@@ -63,7 +63,7 @@ def test_email(receivers):
     message['From'] = Header("IMXIE", 'utf-8')
     message['To'] = Header("IMXIE", 'utf-8')
 
-    subject = 'Python SMTP 邮件测试'
+    subject = 'ONE 邮件系统测试'
     message['Subject'] = Header(subject, 'utf-8')
 
     try:
