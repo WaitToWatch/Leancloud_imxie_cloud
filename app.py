@@ -27,6 +27,8 @@ app.register_blueprint(todos_view, url_prefix='/todos')
 android_page = 1
 girl_page = 1
 
+receiver = ''
+
 
 class EmailForm(Form):
     address = StringField('您的邮箱是?', validators=[Email()])
@@ -82,6 +84,7 @@ def get_one():
 def save_email():
     form = EmailForm()
     feed_back = ''
+    global receiver
     if form.validate_on_submit():
         # 提交内容合理则进行的操作
         address = form.address.data
@@ -91,4 +94,11 @@ def save_email():
             one_email.test_email(address)
         else:
             feed_back = '当前 %s 已存在数据库' % address
+        receiver = address
     return render_template('save_email.html', form=form, feedback=feed_back)
+
+
+@app.route('/test_email', methods=['GET', 'POST'])
+def test_email():
+    result = one_email.test_email(receiver)
+    return result

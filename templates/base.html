@@ -1,14 +1,16 @@
 {% extends "bootstrap/base.html" %}
-
 {% block title %}这都被你找到了{% endblock %}
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-{% block styles %}
-    <!-- Bootstrap -->
-    <link href="{{ bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap') }}" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css" type="text/css">
+{% block  head %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block styles %}
+            <!-- Bootstrap -->
+            <link href="{{ bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap') }}" rel="stylesheet">
+            <link rel="stylesheet" href="/static/style.css" type="text/css">
+        {% endblock %}
+    </head>
 {% endblock %}
+
 {% block navbar %}
     <div class="navbar navbar-inverse" role="navigation">
         <div class="container">

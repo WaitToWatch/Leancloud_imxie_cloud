@@ -1,14 +1,46 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% block head %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block styles %}
+            <!-- Bootstrap -->
+            <link href="{{ bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap') }}" rel="stylesheet">
+            <link rel="stylesheet" href="/static/style.css" type="text/css">
+        {% endblock %}
+        <script type="text/javascript">
+            function loadXMLDoc() {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.open("GET", "/test_email", true);
+                xmlhttp.send();
+            }
+        </script>
+    </head>
+{% endblock %}
+
+
 {% block title %} ONE 邮件系统{% endblock %}
 {% block content %}
 
     <div style="margin:32px">
-        <h1 style="margin-bottom: 32px">ONE 邮件系统</h1>
+        <h1 style="margin-bottom: 32px">ONE 邮件系统<img
+                src="https://camo.githubusercontent.com/54fdbe8888c0a75717d7939b42f3d744b77483b0/687474703a2f2f6a617977636a6c6f76652e6769746875622e696f2f73622f69636f2f617765736f6d652e737667"
+                alt="" data-canonical-src="http://jaywcjlove.github.io/sb/ico/awesome.svg"
+                style="max-width:100%;align-content: center;margin-left: 12px"/></h1>
         <p>提交您的邮件,每日早上 9 点,会自动将当日的"一个"——文章+图片+短句,发送至您的邮箱.</p>
         <p style="margin-bottom: 24px">可能会被误认为垃圾邮件,最好的方式是信任并且添加 xcc3641@163.com 为联系人.</p>
+        <p style="margin-bottom: 24px">很高兴遇到你 (๑′ᴗ‵๑) </p>
         {{ wtf.quick_form(form) }}
         <strong><p style="margin-top: 24px;color: #c9302c;">{{ feedback }}</p></strong>
+
+        <button class="btn btn-default" type="button" onclick="loadXMLDoc()">发送测试邮件</button>
+
         <p style="margin-top: 48px">该项目主要用于学习和实践,并且方便自我使用.如有侵犯,即刻下架</p>
     </div>
 
