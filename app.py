@@ -20,6 +20,7 @@ sockets = Sockets(app)
 bootstrap = Bootstrap(app)
 app.config['SECRET_KEY'] = 'Key+1s'
 
+
 # 动态路由
 app.register_blueprint(todos_view, url_prefix='/todos')
 
