@@ -34,7 +34,7 @@ def save(value):
         email.save()
         is_exist = True
         pass
-        return is_exist
+    return is_exist
 
 
 def query_email():
@@ -42,7 +42,9 @@ def query_email():
     query.select("src")
     result = query.find()
     url_list = []
+    print '====================待发送名单====================='
     for i in result:
-        print i.get('src')
+        print u'丨 %s' % i.get('src')
         url_list.append(i.get('src'))
+    print '================================================='
     return url_list

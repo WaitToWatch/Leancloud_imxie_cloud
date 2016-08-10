@@ -38,7 +38,6 @@ def _format_addr(s):
 # 邮件方法
 def sendEmail(text, img, title, story):
     mailto = one_save_email.query_email()
-    print mailto
 
     msg = MIMEMultipart()
     msg['From'] = _format_addr(u'IMXIE <%s>' % from_addr)
@@ -52,7 +51,6 @@ def sendEmail(text, img, title, story):
 
         server.login(from_addr, password)
         server.sendmail(from_addr, mailto, msg.as_string())
-        print mailto.count()
         server.close()
     except Exception as e:
         print 'Exception:', e
@@ -99,11 +97,11 @@ def http(url):
     # "一个"的标题
     title_list = soup_main.find_all("p", {"class": "titulo"})
     title = str(title_list[0].text)
-    print(title)
+    # print(title)
 
     # 得到文章的地址 用Xpath方法
     url_story = page.xpath("//*[@id=\"main-container\"]/div[1]/div[2]/div/div/div[1]/div/p[2]/a/@href")
-    print(url_story[0])
+    # print(url_story[0])
 
     soup_stroy = BeautifulSoup(requests.get(url_story[0]).text)
     stroy_content = str(soup_stroy.find("div", {"class": "articulo-contenido"}))
