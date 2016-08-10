@@ -3,9 +3,11 @@
 from leancloud import Engine
 
 from app import app
+import time
 
 import one_email
-import time
+import proxy_chicken
+import one_save_email
 
 engine = Engine(app)
 
@@ -29,3 +31,12 @@ def send_one_email():
 @engine.define
 def send_test_email(email):
     one_email.test_email(email)
+
+
+@engine.define
+def check_save_proxy():
+    for i in range(1, 20):
+        proxy_chicken.get_proxy_ip(i)
+    can_be_use = proxy_chicken.get_list()
+    for value in can_be_use:
+        one_save_email.save_proxy(value)
