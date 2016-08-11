@@ -13,7 +13,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import Required, DataRequired, Email
 
 import one_email
-import one_save_email
+import model
 
 app = Flask(__name__)
 sockets = Sockets(app)
@@ -90,7 +90,7 @@ def save_email():
         # 提交内容合理则进行的操作
         address = form.address.data
         form.address.data = ''
-        if one_save_email.save(address) is True:
+        if model.save(address) is True:
             feed_back = '存入完毕,并且已经发送一个测试邮件,请查收 \n 可能会被误认为垃圾邮件'
             one_email.test_email(address)
         else:

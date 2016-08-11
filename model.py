@@ -73,7 +73,7 @@ def save_proxy(value):
     try:
         query = Query(Proxy)
         if query.equal_to('src', value=value).first() is not None:
-            print '数据库已存在 %s IP 地址' % value
+            print '数据库已存在 (%s) IP 地址' % value
     except Exception as e:
         # 找不到后插入
         print e
@@ -81,3 +81,21 @@ def save_proxy(value):
         is_exist = True
         pass
     return is_exist
+
+
+def query_proxy():
+    proxy_list = []
+    query = Query(Proxy)
+    query.select('src')
+    reslut = query.find()
+    for i in reslut:
+        proxy_list.append(i.get('src'))
+    return proxy_list
+
+
+def delete_proxy(value):
+    query = Query(Proxy)
+    this = query.equal_to('src', value=value).first()
+    if this is not None:
+        this.destroy()
+        print '已经删除 %s' % value

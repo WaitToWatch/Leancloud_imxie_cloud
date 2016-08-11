@@ -16,7 +16,7 @@ from lxml import etree
 
 from flask import Markup
 
-import one_save_email
+import model
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -37,7 +37,7 @@ def _format_addr(s):
 
 # 邮件方法
 def sendEmail(text, img, title, story):
-    mailto = one_save_email.query_email()
+    mailto = model.query_email()
 
     msg = MIMEMultipart()
     msg['From'] = _format_addr(u'IMXIE <%s>' % from_addr)
