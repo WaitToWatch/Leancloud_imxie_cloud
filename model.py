@@ -98,7 +98,7 @@ def delete_proxy(value):
     this = query.equal_to('src', value=value).first()
     if this is not None:
         this.destroy()
-        print '!!=====> 已经删除 %s' % value
+        print u'!!=====> 已经删除 %s' % value
 
 
 # =========================================
@@ -165,8 +165,9 @@ class Proxy_Item(Object):
 def save_proxy_item(url, count, tb1, tb2):
     item = Proxy_Item()
     urls = []
-    for i in range(1, 11):
+    for i in range(1, 10):
         urls.append(url % i)
+    print urls
     item.set('urls', urls)
     item.set('xp_count', count)
     item.set('xp_tb1', tb1)

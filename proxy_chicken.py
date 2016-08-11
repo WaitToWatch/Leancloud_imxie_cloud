@@ -19,6 +19,7 @@ proxy_index = 0
 def parse_proxy(proxies_url):
     proxies['http'] = proxies_url
     check = False
+    global can_be_use
     try:
         r = requests.get('http://www.baidu.com', proxies=proxies, timeout=5)
         if r and r.status_code == 200:
@@ -41,9 +42,7 @@ def get_proxy_ip(url):
     #
     # print '====================当前 %s 页======================' % page_num
     global proxy_list
-    global can_be_use
     global proxy_index
-    can_be_use = []
 
     if len(proxy_list) == 0:
         proxy_list = model.query_proxy_item()
@@ -55,7 +54,6 @@ def get_proxy_ip(url):
             page = etree.HTML(r.text.lower())
             tb_list = page.xpath(item.xp_count)
             count = len(tb_list)
-
             for i in range(1, count + 1):
                 ip_address = page.xpath(item.xp_tb1 % i)[0]
                 ip_port = page.xpath(item.xp_tb2 % i)[0]
@@ -69,18 +67,19 @@ def get_proxy_ip(url):
 
 
 def get_list():
+    global can_be_use
     return can_be_use
 
 
 def pool_load():
     global proxy_index
     global proxy_list
-    pool = ThreadPool(4)
     proxy_list = model.query_proxy_item()
     for item in proxy_list:
         if isinstance(item, model.Proxy_Item):
+            pool = ThreadPool(4)
             print u'==============当前访问的是 Host %s==============' % item.host
             pool.map(get_proxy_ip, item.urls)
-            pool.close()
+            pool.close()  # 这就结束了
             pool.join()
             proxy_index += 1
