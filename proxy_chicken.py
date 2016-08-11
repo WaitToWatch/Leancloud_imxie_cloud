@@ -10,7 +10,10 @@ proxies = {
     'http': ''
 }
 
+urls = []
 can_be_use = []
+proxy_list = []
+proxy_index = 0
 
 
 def parse_proxy(proxies_url):
@@ -81,10 +84,3 @@ def pool_load():
             pool.close()
             pool.join()
             proxy_index += 1
-
-
-if __name__ == '__main__':
-    urls = []
-    can_be_use = []
-    proxy_list = []
-    proxy_index = 0
