@@ -36,17 +36,19 @@ def send_test_email(email):
 
 @engine.define
 def check_save_proxy():
-    pool = ThreadPool(processes=2)
-    for i in range(1, 10):
-        proxy_chicken.get_proxy_ip(i)
-        can_be_use = proxy_chicken.get_list()
-        for value in can_be_use:
-            model.save_proxy(value)
-        print '===========存储完毕==========='
+    print '========寻找代理启动=========='
+    proxy_chicken.pool_load(10)
+    can_be_use = proxy_chicken.get_list()
+    for value in can_be_use:
+        model.save_proxy(value)
+    print '===========存储完毕==========='
+    check_delete_proxy()
 
 
 @engine.define
 def check_delete_proxy():
+    print '===========检查启动==========='
     for i in model.query_proxy():
         if proxy_chicken.parse_proxy(i) is False:
             model.delete_proxy(i)
+    print '===========再检完毕==========='

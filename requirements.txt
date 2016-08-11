@@ -9,3 +9,4 @@ requests
 flask-bootstrap
 wtforms
 flask-wtf
+multiprocessing

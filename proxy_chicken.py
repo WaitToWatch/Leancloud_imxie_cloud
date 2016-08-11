@@ -1,4 +1,6 @@
 # coding: utf-8
+from multiprocessing.dummy import Pool as ThreadPool
+
 import requests
 from  bs4 import BeautifulSoup
 from lxml import etree
@@ -31,22 +33,23 @@ def parse_proxy(proxies_url):
     return check
 
 
-def get_proxy_ip(page_num):
-    print '====================当前 %s 页======================' % page_num
+def get_proxy_ip(url):
+    # page_num = url[34:]
+    #
+    # print '====================当前 %s 页======================' % page_num
     global can_be_use
     can_be_use = []
     try:
-        r = requests.get('http://www.kuaidaili.com/proxylist/%s/' % page_num, timeout=5)
+        r = requests.get(url=url, timeout=5)
         page = etree.HTML(r.text.lower())
         tb_list = page.xpath('//*[@id="index_free_list"]/table/tbody/tr')
         count = len(tb_list)
         for i in range(1, count + 1):
             ip_address = page.xpath('//*[@id="index_free_list"]/table/tbody/tr[%d]/td[1]/text()' % i)[0]
             ip_port = page.xpath('//*[@id="index_free_list"]/table/tbody/tr[%d]/td[2]/text()' % i)[0]
-            url = "http://" + ip_address + ":" + ip_port
             # print url
-            parse_proxy(url)
-        print '=================================================='
+            parse_proxy('http://%s:%s' % (ip_address, ip_port))
+            # print '=================================================='
     except Exception as e:
         print e
         pass
@@ -54,3 +57,15 @@ def get_proxy_ip(page_num):
 
 def get_list():
     return can_be_use
+
+
+urls = []
+
+
+def pool_load(max_page):
+    pool = ThreadPool(4)
+    for page in range(max_page):
+        urls.append('http://www.kuaidaili.com/proxylist/%s/' % page)
+    pool.map(get_proxy_ip, urls)
+    pool.close()
+    pool.join()
