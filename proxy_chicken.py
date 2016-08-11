@@ -32,6 +32,7 @@ def parse_proxy(proxies_url):
 
 
 def get_proxy_ip(page_num):
+    print '====================当前 %s 页======================' % page_num
     global can_be_use
     can_be_use = []
     try:
@@ -45,7 +46,7 @@ def get_proxy_ip(page_num):
             url = "http://" + ip_address + ":" + ip_port
             # print url
             parse_proxy(url)
-        print '====================下一页======================='
+        print '=================================================='
     except Exception as e:
         print e
         pass

@@ -4,6 +4,7 @@ from leancloud import Engine
 
 from app import app
 import time
+from multiprocessing.dummy import Pool as ThreadPool
 
 import one_email
 import proxy_chicken
@@ -35,7 +36,8 @@ def send_test_email(email):
 
 @engine.define
 def check_save_proxy():
-    for i in range(1, 20):
+    pool = ThreadPool(processes=2)
+    for i in range(1, 10):
         proxy_chicken.get_proxy_ip(i)
         can_be_use = proxy_chicken.get_list()
         for value in can_be_use:

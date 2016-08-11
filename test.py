@@ -2,6 +2,11 @@
 import model
 import proxy_chicken
 import cloud
+import time
+from multiprocessing import Pool as ThreadPool
+import requests
+from lxml import etree
+import Queue
 
 
 # one_save_email.query_email()
@@ -20,4 +25,6 @@ def check_delete_proxy():
         print i
         if proxy_chicken.parse_proxy(i) is False:
             model.delete_proxy(i)
+
+
 
