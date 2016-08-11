@@ -1,5 +1,5 @@
 # coding: utf-8
-from multiprocessing import Pool as ThreadPool
+from multiprocessing.dummy import Pool as ThreadPool
 
 import requests
 from lxml import etree
