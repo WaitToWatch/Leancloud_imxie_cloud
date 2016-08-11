@@ -73,8 +73,8 @@ def pool_load():
     global proxy_index
     global proxy_list
     pool = ThreadPool(4)
-    proxy_lists = model.query_proxy_item()
-    for item in proxy_lists:
+    proxy_list = model.query_proxy_item()
+    for item in proxy_list:
         if isinstance(item, model.Proxy_Item):
             print u'==============当前访问的是 Host %s==============' % item.host
             pool.map(get_proxy_ip, item.urls)
@@ -88,5 +88,3 @@ if __name__ == '__main__':
     can_be_use = []
     proxy_list = []
     proxy_index = 0
-
-

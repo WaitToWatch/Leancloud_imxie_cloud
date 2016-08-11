@@ -21,3 +21,7 @@ def check_delete_proxy():
         if proxy_chicken.parse_proxy(i) is False:
             model.delete_proxy(i)
     print '===========再检完毕==========='
+
+
+if __name__ == '__main__':
+    check_save_proxy()
