@@ -27,4 +27,4 @@ def check_delete_proxy():
             model.delete_proxy(i)
 
 
-proxy_chicken.pool_load(5)
+# proxy_chicken.pool_load(5)

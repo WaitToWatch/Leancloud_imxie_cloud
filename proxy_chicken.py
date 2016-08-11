@@ -1,5 +1,5 @@
 # coding: utf-8
-from multiprocessing.dummy import Pool as ThreadPool
+from multiprocessing import Pool as ThreadPool
 
 import requests
 from  bs4 import BeautifulSoup

@@ -98,4 +98,4 @@ def delete_proxy(value):
     this = query.equal_to('src', value=value).first()
     if this is not None:
         this.destroy()
-        print '已经删除 %s' % value
+        print '!!=====> 已经删除 %s' % value
