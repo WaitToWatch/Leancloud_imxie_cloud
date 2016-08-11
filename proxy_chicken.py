@@ -2,7 +2,6 @@
 from multiprocessing import Pool as ThreadPool
 
 import requests
-from  bs4 import BeautifulSoup
 from lxml import etree
 import model
 
@@ -19,17 +18,17 @@ proxy_index = 0
 def parse_proxy(proxies_url):
     proxies['http'] = proxies_url
     check = False
-    global can_be_use
     try:
         r = requests.get('http://www.baidu.com', proxies=proxies, timeout=5)
         if r and r.status_code == 200:
             print '===========Successful==============='
             print '|| 访问成功 ||----> 耗时: (%f)s  当前IP: (%s) ' % (r.elapsed.total_seconds(), proxies['http'])
             print '===================================='
-            can_be_use.append(proxies['http'])
+            # can_be_use.append(proxies['http'])
+            model.save_proxy(proxies_url)
             check = True
     except (requests.ConnectionError, requests.Timeout):
-        print '|| 超时 or 代理出错 抛弃 ||----> 当前IP: (%s) ' % proxies['http']
+        print u'|| 超时 or 代理出错 抛弃 ||----> 当前IP: (%s) ' % proxies_url
         pass
     except Exception as e:
         print e
@@ -67,7 +66,6 @@ def get_proxy_ip(url):
 
 
 def get_list():
-    global can_be_use
     return can_be_use
 
 
@@ -82,4 +80,6 @@ def pool_load():
             pool.map(get_proxy_ip, item.urls)
             pool.close()  # 这就结束了
             pool.join()
+            # for url in item.urls:
+            #     get_proxy_ip(url)
             proxy_index += 1

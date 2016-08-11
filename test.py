@@ -27,7 +27,7 @@ def check_delete_proxy():
             model.delete_proxy(i)
 
 
-proxy_chicken.pool_load(5)
+# proxy_chicken.pool_load(5)
 model.save_proxy_item('http://www.kuaidaili.com/proxylist/%s/', '//*[@id="index_free_list"]/table/tbody/tr',
                       '//*[@id="index_free_list"]/table/tbody/tr[%d]/td[1]/text()'
                       , '//*[@id="index_free_list"]/table/tbody/tr[%d]/td[2]/text()')

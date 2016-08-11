@@ -66,7 +66,6 @@ class Proxy(Object):
 
 
 def save_proxy(value):
-    Proxy = leancloud.Object.extend('Proxy')
     proxy = Proxy()
     proxy.set('src', value)
     is_exist = False
@@ -165,7 +164,7 @@ class Proxy_Item(Object):
 def save_proxy_item(url, count, tb1, tb2):
     item = Proxy_Item()
     urls = []
-    for i in range(1, 10):
+    for i in range(1, 2):
         urls.append(url % i)
     print urls
     item.set('urls', urls)
