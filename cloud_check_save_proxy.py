@@ -24,5 +24,4 @@ def check_delete_proxy():
     print '===========再检完毕==========='
 
 
-if __name__ == '__main__':
-    check_save_proxy()
+check_save_proxy()
