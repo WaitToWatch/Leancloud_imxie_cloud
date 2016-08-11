@@ -13,7 +13,7 @@ def check_save_proxy():
         # for value in can_be_use:
         #     model.save_proxy(value)
         print '===========存储完毕==========='
-    check_delete_proxy()
+    # check_delete_proxy()
 
 
 def check_delete_proxy():
