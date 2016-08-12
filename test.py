@@ -28,10 +28,9 @@ def check_delete_proxy():
 
 
 # proxy_chicken.pool_load(5)
-model.save_proxy_item('http://www.kuaidaili.com/proxylist/%s/', '//*[@id="index_free_list"]/table/tbody/tr',
-                      '//*[@id="index_free_list"]/table/tbody/tr[%d]/td[1]/text()'
-                      , '//*[@id="index_free_list"]/table/tbody/tr[%d]/td[2]/text()')
 
 model.save_proxy_item('http://www.kuaidaili.com/free/inha/%s/', '//*[@id="list"]/table/tbody/tr',
                       '//*[@id="list"]/table/tbody/tr[%d]/td[1]/text()',
                       '//*[@id="list"]/table/tbody/tr[%d]/td[2]/text()')
+
+model.save_proxy_item('http://www.xicidaili.com/nn/%s','//*[@id="ip_list"]/tbody/tr[2]/td[2]')

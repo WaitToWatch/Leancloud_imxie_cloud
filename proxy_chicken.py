@@ -1,9 +1,16 @@
 # coding: utf-8
 from multiprocessing import Pool as ThreadPool
 
+import time
+
 import requests
 from lxml import etree
 import model
+import logging
+
+# 通过下面的方式进行简单配置输出方式与日志级别
+logging.basicConfig(filename='logger.log', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 proxies = {
     'http': ''
@@ -21,14 +28,14 @@ def parse_proxy(proxies_url):
     try:
         r = requests.get('http://www.baidu.com', proxies=proxies, timeout=5)
         if r and r.status_code == 200:
-            print '===========Successful==============='
-            print '|| 访问成功 ||----> 耗时: (%f)s  当前IP: (%s) ' % (r.elapsed.total_seconds(), proxies['http'])
-            print '===================================='
+            logging.info('===========Successful===============')
+            logging.info('|| 访问成功 ||----> 耗时: (%f)s  当前IP: (%s) ' % (r.elapsed.total_seconds(), proxies_url))
+            logging.info('====================================')
             # can_be_use.append(proxies['http'])
             model.save_proxy(proxies_url)
             check = True
     except (requests.ConnectionError, requests.Timeout):
-        print u'|| 超时 or 代理出错 抛弃 ||----> 当前IP: (%s) ' % proxies_url
+        logging.info(u'|| 超时 or 代理出错 抛弃 ||----> 当前IP: (%s) ' % proxies_url)
         pass
     except Exception as e:
         print e
@@ -56,7 +63,6 @@ def get_proxy_ip(url):
             for i in range(1, count + 1):
                 ip_address = page.xpath(item.xp_tb1 % i)[0]
                 ip_port = page.xpath(item.xp_tb2 % i)[0]
-
                 if ip_address and ip_port is not None:
                     parse_proxy('http://%s:%s' % (ip_address, ip_port))
                     # print '=================================================='
@@ -70,13 +76,14 @@ def get_list():
 
 
 def pool_load():
+    logging.info(time.strftime('|| 运行时间: %Y-%m-%d (%H:%M)', time.localtime(time.time())))
     global proxy_index
     global proxy_list
     proxy_list = model.query_proxy_item()
     for item in proxy_list:
         if isinstance(item, model.Proxy_Item):
             pool = ThreadPool(4)
-            print u'==============当前访问的是 Host %s==============' % item.host
+            logging.info(u'==============当前访问的是 Host %s==============' % item.host)
             pool.map(get_proxy_ip, item.urls)
             pool.close()  # 这就结束了
             pool.join()
