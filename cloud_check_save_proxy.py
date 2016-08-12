@@ -11,7 +11,6 @@ def check_save_proxy():
     logging.info('========寻找代理启动==========')
     proxy_chicken.pool_load()
     logging.info('===========存储完毕===========')
-    check_delete_proxy()
 
 
 def check_delete_proxy():

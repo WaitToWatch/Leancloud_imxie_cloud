@@ -12,6 +12,12 @@ import logging
 logging.basicConfig(filename='logger_proxy.log', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+header_info = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
+    'Connection': 'keep-alive',
+    'Content-Type': 'text/html; charset=utf-8'
+}
+
 proxies = {
     'http': ''
 }
@@ -26,7 +32,7 @@ def parse_proxy(proxies_url):
     proxies['http'] = proxies_url
     check = False
     try:
-        r = requests.get('http://www.baidu.com', proxies=proxies, timeout=5)
+        r = requests.get('http://www.baidu.com', proxies=proxies, timeout=5, headers=header_info)
         if r and r.status_code == 200:
             logging.info('===========Successful===============')
             logging.info('|| 访问成功 ||----> 耗时: (%f)s  当前IP: (%s) ' % (r.elapsed.total_seconds(), proxies_url))
@@ -38,7 +44,7 @@ def parse_proxy(proxies_url):
         logging.info(u'|| 超时 or 代理出错 抛弃 ||----> 当前IP: (%s) ' % proxies_url)
         pass
     except Exception as e:
-        print e
+        logging.warn(e)
         pass
     return check
 
@@ -56,18 +62,20 @@ def get_proxy_ip(url):
 
     if isinstance(item, model.Proxy_Item):
         try:
-            r = requests.get(url=url, timeout=5)
-            page = etree.HTML(r.text.lower())
+            r = requests.get(url=url, timeout=5, headers=header_info)
+            page = etree.HTML(r.text)
+            print r.text
             tb_list = page.xpath(item.xp_count)
             count = len(tb_list)
             for i in range(1, count + 1):
                 ip_address = page.xpath(item.xp_tb1 % i)[0]
                 ip_port = page.xpath(item.xp_tb2 % i)[0]
+                print ip_port is None
                 if ip_address and ip_port is not None:
                     parse_proxy('http://%s:%s' % (ip_address, ip_port))
                     # print '=================================================='
         except Exception as e:
-            print e
+            logging.warn("get_proxy_ip报错 —-> " + e.message)
             pass
 
 
@@ -80,6 +88,9 @@ def pool_load():
     global proxy_index
     global proxy_list
     proxy_list = model.query_proxy_item()
+
+    print "当前有 %d 实例" % len(proxy_list)
+
     for item in proxy_list:
         if isinstance(item, model.Proxy_Item):
             pool = ThreadPool(4)

@@ -7,17 +7,16 @@ from multiprocessing import Pool as ThreadPool
 import requests
 from lxml import etree
 import Queue
+from lxml import html
+import logging
 
+header_info = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
+    'Connection': 'keep-alive',
+    'Content-Type': 'ext/html; charset=utf-8'
+}
 
-# one_save_email.query_email()
-
-# s = '还可以'
-#
-# print '测试%s 这个也是%f' % (s, 0.2323)
-#
-# proxy_chicken.get_proxy_ip(2)
-
-# model.query_proxy()
+logging.getLogger(__name__)
 
 
 def check_delete_proxy():
@@ -32,7 +31,15 @@ def check_delete_proxy():
 model.save_proxy_item('http://www.kuaidaili.com/free/inha/%s/', '//*[@id="list"]/table/tbody/tr',
                       '//*[@id="list"]/table/tbody/tr[%d]/td[1]/text()',
                       '//*[@id="list"]/table/tbody/tr[%d]/td[2]/text()')
-
-model.save_proxy_item('http://www.xicidaili.com/nn/%s', '//*[@id="ip_list"]/tbody/tr',
+# 这里需要清除 tbody
+model.save_proxy_item('http://www.xicidaili.com/nn/%s', '//*[@id="ip_list"]/tr',
                       '//*[@id="ip_list"]/tbody/tr[%d]/td[2]/text()',
                       '//*[@id="ip_list"]/tbody/tr[%d]/td[3]/text()')
+
+# r = requests.get('http://www.kuaidaili.com/free/inha/1/', headers=header_info)
+# print r.status_code
+# text = etree.HTML(r.text)
+#
+# # logging.info(r.text)
+#
+# logging.info(text.xpath('//*[@id="list"]/table/tbody/tr'))
