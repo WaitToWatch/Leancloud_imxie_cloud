@@ -64,18 +64,21 @@ def get_proxy_ip(url):
         try:
             r = requests.get(url=url, timeout=5, headers=header_info)
             page = etree.HTML(r.text)
-            print r.text
             tb_list = page.xpath(item.xp_count)
             count = len(tb_list)
-            for i in range(1, count + 1):
-                ip_address = page.xpath(item.xp_tb1 % i)[0]
-                ip_port = page.xpath(item.xp_tb2 % i)[0]
-                print ip_port is None
-                if ip_address and ip_port is not None:
-                    parse_proxy('http://%s:%s' % (ip_address, ip_port))
-                    # print '=================================================='
+            if count == 0:
+                logging.warn('当前长度有问题,网址是: (%s)' % url)
+                raise requests.HTTPError
+            for i in range(1, count):
+                if page.xpath(item.xp_tb1 % i) and page.xpath(item.xp_tb2 % i) != 0:
+                    ip_address = page.xpath(item.xp_tb1 % i)[0]
+                    ip_port = page.xpath(item.xp_tb2 % i)[0]
+                    if ip_address and ip_port is not None:
+                        parse_proxy('http://%s:%s' % (ip_address, ip_port))
+                        # print '=================================================='
         except Exception as e:
-            logging.warn("get_proxy_ip报错 —-> " + e.message)
+            logging.warn("get_proxy_ip报错:")
+            logging.warn(e)
             pass
 
 
