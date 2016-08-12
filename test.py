@@ -33,4 +33,6 @@ model.save_proxy_item('http://www.kuaidaili.com/free/inha/%s/', '//*[@id="list"]
                       '//*[@id="list"]/table/tbody/tr[%d]/td[1]/text()',
                       '//*[@id="list"]/table/tbody/tr[%d]/td[2]/text()')
 
-model.save_proxy_item('http://www.xicidaili.com/nn/%s','//*[@id="ip_list"]/tbody/tr[2]/td[2]')
+model.save_proxy_item('http://www.xicidaili.com/nn/%s', '//*[@id="ip_list"]/tbody/tr',
+                      '//*[@id="ip_list"]/tbody/tr[%d]/td[2]/text()',
+                      '//*[@id="ip_list"]/tbody/tr[%d]/td[3]/text()')
