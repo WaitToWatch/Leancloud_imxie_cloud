@@ -15,11 +15,11 @@ def check_save_proxy():
 
 
 def check_delete_proxy():
-    print '===========检查启动==========='
+    logging.info('===========检查启动===========')
     for i in model.query_proxy():
         if proxy_chicken.parse_proxy(i) is False:
             model.delete_proxy(i)
-    print '===========再检完毕==========='
+    logging.info('===========再检完毕===========')
 
 
 check_save_proxy()

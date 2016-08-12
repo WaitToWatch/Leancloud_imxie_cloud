@@ -9,7 +9,7 @@ import model
 import logging
 
 # 通过下面的方式进行简单配置输出方式与日志级别
-logging.basicConfig(filename='logger.log', level=logging.INFO)
+logging.basicConfig(filename='logger_proxy.log', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 proxies = {
