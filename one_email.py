@@ -153,10 +153,11 @@ def get_one_page():
 
     stroy = stroy_title + stroy_content
 
-    stroy = Markup('<img class="img-responsive" alt="140x140" src="' + imgUrl + '"></p></div>' +
-                   '<p style="text-align:center;\"> <br /><br />'
-                   '<strong><span style="font-size:14px; text-align: center;\">' + text + '</span></strong></p><br /><br /><br /><br /><br />'
-                   + stroy)
+    stroy = Markup(
+        '<img class="img-responsive" style="box-shadow:rgb(102, 102, 102) 0.2em 0.2em 0.5em" alt="140x140" src="' + imgUrl + '"></p></div>' +
+        '<p style="text-align:center;\"> <br /><br />'
+        '<strong><span style="font-size:14px; text-align: center;\">' + text + '</span></strong></p><br /><br /><br /><br /><br />'
+        + stroy)
     # print(stroy)
     return stroy
 

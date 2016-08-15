@@ -61,3 +61,4 @@ def test_for_new():
 
 
 # test_for_new()
+cloud.check_delete_proxy()
